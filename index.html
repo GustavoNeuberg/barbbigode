@@ -81,6 +81,56 @@
             <i class="fab fa-whatsapp"></i>
         </a>
     </div>
+    <section class="services container">
+            <h2>Serviços</h2>
+            <div class="service-cards">
+                <div class="card" data-aos="fade-right">
+                    <img src="assets/corte1.png" alt="Corte de Cabelo">
+                    <div class="card-info">
+                        <strong>Corte de Cabelo</strong>
+                        <span>Estilo, precisão e atitude: seu corte perfeito</span>
+                    </div>
+                </div>
+                <div class="card" data-aos="fade-left">
+                    <img src="assets/corte2.png" alt="Barba">
+                    <div class="card-info">
+                        <strong>Barba</strong>
+                        <span>Barba bem feita, estilo garantido</span>
+                    </div>
+                </div>
+                <div class="card" data-aos="fade-right">
+                    <img src="assets/corte3.png" alt="Corte Cabelo e Barba">
+                    <div class="card-info">
+                        <strong>Corte Cabelo e Barba</strong>
+                        <span>Cabelo e barba impecáveis: transforme seu visual</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="location" data-aos="fade-up">
+            <h2>Venha nos conhecer</h2>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3671.8356589889136!2d-45.556963824686036!3d-23.02980557916872!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjPCsDAxJzQ3LjMiUyA0NcKwMzMnMTUuOCJX!5e0!3m2!1spt-BR!2sbr!4v1746456233657!5m2!1spt-BR!2sbr" width="100%" height="auto" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </section>
+
+        <footer class="footer">
+            <div class="footer-content container">
+                <img class="footer-img" src="assets/logo bc.png" alt="Logo Barbearia" class="footer-logo">
+                <nav class="footer-icons">
+                    <a href="https://www.instagram.com/barbeariacentraltaubate"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                </nav>
+            </div>
+            <p>&copy; 2025 Todos os direitos reservados.</p>
+        </footer>
+
+        <a href="https://wa.me/5512988943766" class="whatsapp-button" target="_blank" aria-label="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init();</script>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -145,29 +195,29 @@
         dataInput.addEventListener('change', validar);
 
         confirmarBtn.addEventListener('click', () => {
-            const nome = document.getElementById('nome').value.trim();
-            const barbeiro = barbeiroSelect.value;
-            const data = dataInput.value;
+    const nome = document.getElementById('nome').value.trim();
+    const barbeiro = barbeiroSelect.value;
+    const data = dataInput.value;
 
-            if (!nome) {
-                alert("Por favor, digite seu nome.");
-                return;
-            }
+    if (!nome) {
+        alert("Por favor, digite seu nome.");
+        return;
+    }
 
-            const mensagem = `Olá, sou ${nome} e fiz um agendamento para ${data} às ${horarioSelecionado} com ${barbeiro} através do link.`;
-            const link = `https://api.whatsapp.com/send?phone=5547991447298&text=${encodeURIComponent(mensagem)}`;
+    // Corrigido: usando crases corretamente e número consistente
+    const mensagem = `Olá, sou ${nome} e fiz um agendamento para ${data} às ${horarioSelecionado} com ${barbeiro} através do link.`;
+    const link = `https://api.whatsapp.com/send?phone=5512988943766&text=${encodeURIComponent(mensagem)}`;
 
-            // Mostra o feedback visual
-            const overlay = document.getElementById('feedback-overlay');
-            overlay.style.display = 'flex';
+    // Mostra o feedback visual
+    const overlay = document.getElementById('feedback-overlay');
+    overlay.style.display = 'flex';
 
-            // Depois de 2 segundos, abre WhatsApp e remove overlay
-            setTimeout(() => {
-                window.open(link, '_blank');
-                overlay.style.display = 'none';
-            }, 2000);
-        });
-    });
+    // Depois de 2 segundos, abre WhatsApp e remove overlay
+    setTimeout(() => {
+        window.open(link, '_blank');
+        overlay.style.display = 'none';
+    }, 2000);
+});
     </script>
 </body>
 </html>
