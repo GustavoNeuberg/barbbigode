@@ -124,7 +124,7 @@
             <p>&copy; 2025 Todos os direitos reservados.</p>
         </footer>
 
-        <a href="https://wa.me/5512988943766" class="whatsapp-button" target="_blank" aria-label="WhatsApp">
+        <a href="https://wa.me/5547991447298" class="whatsapp-button" target="_blank" aria-label="WhatsApp">
             <i class="fab fa-whatsapp"></i>
         </a>
     </div>
@@ -137,86 +137,121 @@
     <script>AOS.init();</script>
     <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const barbeiroSelect = document.getElementById('barbeiro');
-        const dataInput = document.getElementById('data');
-        const horariosDiv = document.getElementById('horarios');
-        const confirmarBtn = document.getElementById('confirmar');
-        const btnAgendar = document.getElementById('btn-agendar');
-        const secaoAgendamento = document.querySelector('.agendamento');
-        let horarioSelecionado = '';
+    const barbeiroSelect = document.getElementById('barbeiro');
+    const dataInput = document.getElementById('data');
+    const horariosDiv = document.getElementById('horarios');
+    const confirmarBtn = document.getElementById('confirmar');
+    const btnAgendar = document.getElementById('btn-agendar');
+    const secaoAgendamento = document.querySelector('.agendamento');
+    let horarioSelecionado = '';
 
-        // Mostrar a seção quando clicar
-        btnAgendar.addEventListener('click', (e) => {
-            e.preventDefault();
-            secaoAgendamento.style.display = 'block';
-            secaoAgendamento.scrollIntoView({ behavior: 'smooth' });
-        });
+    // Mostrar a seção quando clicar
+    btnAgendar.addEventListener('click', (e) => {
+        e.preventDefault();
+        secaoAgendamento.style.display = 'block';
+        secaoAgendamento.scrollIntoView({ behavior: 'smooth' });
+    });
 
-        // Inicializa o calendário Flatpickr
-        flatpickr("#data", {
-            dateFormat: "d/m/Y",
-            minDate: "today",
-            onChange: function() {
-                gerarHorarios();
+    // Inicializa o calendário Flatpickr
+    flatpickr("#data", {
+        dateFormat: "d/m/Y",
+        minDate: "today",
+        disable: [
+            function(date) {
+                // Desabilita domingos
+                return (date.getDay() === 0);
+            }
+        ],
+        locale: {
+            firstDayOfWeek: 1 // Começa na segunda-feira
+        },
+        onChange: function() {
+            gerarHorarios();
+            validar();
+        }
+    });
+
+    // Gera horários disponíveis
+    function gerarHorarios() {
+        horariosDiv.innerHTML = '';
+        const horarios = ["09:00","09:30","10:00","10:30","11:00","14:00","14:30","15:00","15:30","16:00","16:30","17:00","17:30","18:00","18:30","19:00","19:30", "20:00"];
+        
+        horarios.forEach(hora => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.textContent = hora;
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.horarios-grid button').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                horarioSelecionado = hora;
                 validar();
-            }
-        });
-
-        // Gera horários fictícios
-        function gerarHorarios() {
-            horariosDiv.innerHTML = '';
-            const horarios = ["09:00","09:30","10:00","10:30","11:00","14:00","14:30","15:00","15:30","16:00","16:30","17:00","17:30","18:00","18:30","19:00","19:30","20:00"];
-            horarios.forEach(hora => {
-                const btn = document.createElement('button');
-                btn.type = 'button';
-                btn.textContent = hora;
-                btn.addEventListener('click', () => {
-                    document.querySelectorAll('.horarios-grid button').forEach(b => b.classList.remove('selected'));
-                    btn.classList.add('selected');
-                    horarioSelecionado = hora;
-                    validar();
-                });
-                horariosDiv.appendChild(btn);
             });
-        }
-
-        function validar() {
-            const nome = document.getElementById('nome').value.trim();
-            if (nome && barbeiroSelect.value && dataInput.value && horarioSelecionado) {
-                confirmarBtn.disabled = false;
-            } else {
-                confirmarBtn.disabled = true;
-            }
-        }
-
-        // Atualiza ao mudar nome, barbeiro ou data
-        document.getElementById('nome').addEventListener('input', validar);
-        barbeiroSelect.addEventListener('change', validar);
-        dataInput.addEventListener('change', validar);
-
-        confirmarBtn.addEventListener('click', () => {
-    const nome = document.getElementById('nome').value.trim();
-    const barbeiro = barbeiroSelect.value;
-    const data = dataInput.value;
-
-    if (!nome) {
-        alert("Por favor, digite seu nome.");
-        return;
+            horariosDiv.appendChild(btn);
+        });
     }
 
-    // Corrigido: usando crases corretamente e número consistente
-    const mensagem = `Olá, sou ${nome} e fiz um agendamento para ${data} às ${horarioSelecionado} com ${barbeiro} através do link.`;
-    const link = `https://api.whatsapp.com/send?phone=5512988943766&text=${encodeURIComponent(mensagem)}`;
+    // Valida se todos os campos estão preenchidos
+    function validar() {
+        const nome = document.getElementById('nome').value.trim();
+        if (nome && barbeiroSelect.value && dataInput.value && horarioSelecionado) {
+            confirmarBtn.disabled = false;
+            confirmarBtn.classList.add('ativo');
+        } else {
+            confirmarBtn.disabled = true;
+            confirmarBtn.classList.remove('ativo');
+        }
+    }
 
-    // Mostra o feedback visual
-    const overlay = document.getElementById('feedback-overlay');
-    overlay.style.display = 'flex';
+    // Atualiza ao mudar nome, barbeiro ou data
+    document.getElementById('nome').addEventListener('input', validar);
+    barbeiroSelect.addEventListener('change', validar);
+    dataInput.addEventListener('change', validar);
 
-    // Depois de 2 segundos, abre WhatsApp e remove overlay
-    setTimeout(() => {
-        window.open(link, '_blank');
-        overlay.style.display = 'none';
-    }, 2000);
+    // Função principal do botão de confirmação
+    confirmarBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        const nome = document.getElementById('nome').value.trim();
+        const barbeiro = barbeiroSelect.value;
+        const data = dataInput.value;
+
+        // Validação final
+        if (!nome || !barbeiro || !data || !horarioSelecionado) {
+            alert("Por favor, preencha todos os campos corretamente.");
+            return;
+        }
+
+        // Cria a mensagem para o WhatsApp
+        const mensagem = `*AGENDAMENTO BARBEARIA CENTRAL*\n\n` +
+                        `*Nome:* ${nome}\n` +
+                        `*Barbeiro:* ${barbeiro}\n` +
+                        `*Data:* ${data}\n` +
+                        `*Horário:* ${horarioSelecionado}\n\n` +
+                        `Confirmo meu agendamento para esta data e horário.`;
+
+        // Codifica a mensagem para URL
+        const mensagemCodificada = encodeURIComponent(mensagem);
+        const linkWhatsApp = `https://wa.me/5547991447298?text=${mensagemCodificada}`;
+
+        // Mostra feedback visual
+        const overlay = document.getElementById('feedback-overlay');
+        overlay.style.display = 'flex';
+
+        // Redireciona diretamente para o WhatsApp
+        // Solução que funciona em desktop e mobile
+        if (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            // Dispositivo móvel - abre na mesma aba
+            window.location.href = linkWhatsApp;
+        } else {
+            // Desktop - abre nova aba
+            window.open(linkWhatsApp, '_blank');
+        }
+
+        // Esconde o overlay após 1,5 segundos (caso o redirecionamento falhe)
+        setTimeout(() => {
+            overlay.style.display = 'none';
+        }, 1500);
+    });
 });
     </script>
 </body>
