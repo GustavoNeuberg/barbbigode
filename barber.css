@@ -393,6 +393,8 @@ footer p {
     margin-top: 10px;
 }
 
+
+
 @keyframes pop {
     0% { transform: scale(0); opacity: 0; }
     80% { transform: scale(1.2); opacity: 1; }
