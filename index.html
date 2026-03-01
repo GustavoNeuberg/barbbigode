@@ -25,7 +25,7 @@
                 </nav>
             </header>
             <section class="hero" data-aos="fade-up">
-                <h1>ESTILO É UM REFLEXO DA SUA ATITUDE E SUA PERSONALIDADE</h1>
+                
                 <p>Horário: 9h às 20h</p>
                 <a class="btn" href="#" id="btn-agendar">Agende seu Horário</a>
             </section>
@@ -81,6 +81,39 @@
             <i class="fab fa-whatsapp"></i>
         </a>
     </div>
+
+    <section class="social-proof container" data-aos="fade-up">
+    <h2>APROVADO POR QUEM EXIGE O MELHOR</h2>
+    <div class="reviews-grid">
+        <div class="review-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="stars">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <p class="review-text">"Melhor barbearia da região. Atendimento impecável e o corte sempre fica alinhado. Não troco por nada."</p>
+            <strong class="client-name">- Rafael Silva</strong>
+            <span class="review-source"><i class="fab fa-google"></i> Avaliação do Google</span>
+        </div>
+
+        <div class="review-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="stars">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <p class="review-text">"Ambiente de primeira e os barbeiros são FODAS Recomendo de olhos fechados."</p>
+            <strong class="client-name">- Thiago Mendes</strong>
+            <span class="review-source"><i class="fab fa-google"></i> Avaliação do Google</span>
+        </div>
+
+        <div class="review-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="stars">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <p class="review-text">"Fiz cabelo e barba pro meu casamento lá, muito bom mesmo."</p>
+            <strong class="client-name">- Carlos Eduardo</strong>
+            <span class="review-source"><i class="fab fa-google"></i> Avaliação do Google</span>
+        </div>
+    </div>
+</section>
+
     <section class="services container">
             <h2>Serviços</h2>
             <div class="service-cards">
@@ -128,131 +161,123 @@
             <i class="fab fa-whatsapp"></i>
         </a>
     </div>
-
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>AOS.init();</script>
-
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script>AOS.init();</script>
-    <script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/pt.js"></script> <script>
+    // Inicializa as animações
+    AOS.init();
+
     document.addEventListener('DOMContentLoaded', () => {
-    const barbeiroSelect = document.getElementById('barbeiro');
-    const dataInput = document.getElementById('data');
-    const horariosDiv = document.getElementById('horarios');
-    const confirmarBtn = document.getElementById('confirmar');
-    const btnAgendar = document.getElementById('btn-agendar');
-    const secaoAgendamento = document.querySelector('.agendamento');
-    let horarioSelecionado = '';
+        const barbeiroSelect = document.getElementById('barbeiro');
+        const dataInput = document.getElementById('data');
+        const horariosDiv = document.getElementById('horarios');
+        const confirmarBtn = document.getElementById('confirmar');
+        const btnAgendar = document.getElementById('btn-agendar');
+        const secaoAgendamento = document.querySelector('.agendamento');
+        let horarioSelecionado = '';
 
-    // Mostrar a seção quando clicar
-    btnAgendar.addEventListener('click', (e) => {
-        e.preventDefault();
-        secaoAgendamento.style.display = 'block';
-        secaoAgendamento.scrollIntoView({ behavior: 'smooth' });
-    });
-
-    // Inicializa o calendário Flatpickr
-    flatpickr("#data", {
-        dateFormat: "d/m/Y",
-        minDate: "today",
-        disable: [
-            function(date) {
-                // Desabilita domingos
-                return (date.getDay() === 0);
-            }
-        ],
-        locale: {
-            firstDayOfWeek: 1 // Começa na segunda-feira
-        },
-        onChange: function() {
-            gerarHorarios();
-            validar();
-        }
-    });
-
-    // Gera horários disponíveis
-    function gerarHorarios() {
-        horariosDiv.innerHTML = '';
-        const horarios = ["09:00","09:30","10:00","10:30","11:00","14:00","14:30","15:00","15:30","16:00","16:30","17:00","17:30","18:00","18:30","19:00","19:30", "20:00"];
-        
-        horarios.forEach(hora => {
-            const btn = document.createElement('button');
-            btn.type = 'button';
-            btn.textContent = hora;
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.horarios-grid button').forEach(b => b.classList.remove('selected'));
-                btn.classList.add('selected');
-                horarioSelecionado = hora;
-                validar();
-            });
-            horariosDiv.appendChild(btn);
+        // Mostrar a seção quando clicar
+        btnAgendar.addEventListener('click', (e) => {
+            e.preventDefault();
+            secaoAgendamento.style.display = 'block'; // Lembrete: ideal é tirar isso depois e deixar sempre visível
+            secaoAgendamento.scrollIntoView({ behavior: 'smooth' });
         });
-    }
 
-    // Valida se todos os campos estão preenchidos
-    function validar() {
-        const nome = document.getElementById('nome').value.trim();
-        if (nome && barbeiroSelect.value && dataInput.value && horarioSelecionado) {
-            confirmarBtn.disabled = false;
-            confirmarBtn.classList.add('ativo');
-        } else {
-            confirmarBtn.disabled = true;
-            confirmarBtn.classList.remove('ativo');
-        }
-    }
+        // Inicializa o calendário Flatpickr
+        flatpickr("#data", {
+            dateFormat: "d/m/Y",
+            minDate: "today",
+            locale: "pt", // <--- GATILHO DA TRADUÇÃO ATIVADO AQUI
+            disable: [
+                function(date) {
+                    // Desabilita domingos
+                    return (date.getDay() === 0);
+                }
+            ],
+            onChange: function() {
+                gerarHorarios();
+                validar();
+            }
+        });
 
-    // Atualiza ao mudar nome, barbeiro ou data
-    document.getElementById('nome').addEventListener('input', validar);
-    barbeiroSelect.addEventListener('change', validar);
-    dataInput.addEventListener('change', validar);
-
-    // Função principal do botão de confirmação
-    confirmarBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        
-        const nome = document.getElementById('nome').value.trim();
-        const barbeiro = barbeiroSelect.value;
-        const data = dataInput.value;
-
-        // Validação final
-        if (!nome || !barbeiro || !data || !horarioSelecionado) {
-            alert("Por favor, preencha todos os campos corretamente.");
-            return;
-        }
-
-        // Cria a mensagem para o WhatsApp
-        const mensagem = `*AGENDAMENTO BARBEARIA CENTRAL*\n\n` +
-                        `*Nome:* ${nome}\n` +
-                        `*Barbeiro:* ${barbeiro}\n` +
-                        `*Data:* ${data}\n` +
-                        `*Horário:* ${horarioSelecionado}\n\n` +
-                        `Confirmo meu agendamento para esta data e horário.`;
-
-        // Codifica a mensagem para URL
-        const mensagemCodificada = encodeURIComponent(mensagem);
-        const linkWhatsApp = `https://wa.me/5547991447298?text=${mensagemCodificada}`;
-
-        // Mostra feedback visual
-        const overlay = document.getElementById('feedback-overlay');
-        overlay.style.display = 'flex';
-
-        // Redireciona diretamente para o WhatsApp
-        // Solução que funciona em desktop e mobile
-        if (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-            // Dispositivo móvel - abre na mesma aba
-            window.location.href = linkWhatsApp;
-        } else {
-            // Desktop - abre nova aba
-            window.open(linkWhatsApp, '_blank');
+        // Gera horários disponíveis
+        function gerarHorarios() {
+            horariosDiv.innerHTML = '';
+            const horarios = ["09:00","09:30","10:00","10:30","11:00","14:00","14:30","15:00","15:30","16:00","16:30","17:00","17:30","18:00","18:30","19:00","19:30", "20:00"];
+            
+            horarios.forEach(hora => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.textContent = hora;
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.horarios-grid button').forEach(b => b.classList.remove('selected'));
+                    btn.classList.add('selected');
+                    horarioSelecionado = hora;
+                    validar();
+                });
+                horariosDiv.appendChild(btn);
+            });
         }
 
-        // Esconde o overlay após 2 segundos (caso o redirecionamento falhe)
-        setTimeout(() => {
-            overlay.style.display = 'none';
-        }, 3000);
+        // Valida se todos os campos estão preenchidos
+        function validar() {
+            const nome = document.getElementById('nome').value.trim();
+            if (nome && barbeiroSelect.value && dataInput.value && horarioSelecionado) {
+                confirmarBtn.disabled = false;
+                confirmarBtn.classList.add('ativo');
+            } else {
+                confirmarBtn.disabled = true;
+                confirmarBtn.classList.remove('ativo');
+            }
+        }
+
+        // Atualiza ao mudar nome, barbeiro ou data
+        document.getElementById('nome').addEventListener('input', validar);
+        barbeiroSelect.addEventListener('change', validar);
+        dataInput.addEventListener('change', validar);
+
+        // Função principal do botão de confirmação
+        confirmarBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            const nome = document.getElementById('nome').value.trim();
+            const barbeiro = barbeiroSelect.value;
+            const data = dataInput.value;
+
+            // Validação final
+            if (!nome || !barbeiro || !data || !horarioSelecionado) {
+                alert("Por favor, preencha todos os campos corretamente.");
+                return;
+            }
+
+            // Cria a mensagem para o WhatsApp
+            const mensagem = `*AGENDAMENTO BARBEARIA CENTRAL*\n\n` +
+                            `*Nome:* ${nome}\n` +
+                            `*Barbeiro:* ${barbeiro}\n` +
+                            `*Data:* ${data}\n` +
+                            `*Horário:* ${horarioSelecionado}\n\n` +
+                            `Confirmo meu agendamento para esta data e horário.`;
+
+            // Codifica a mensagem para URL
+            const mensagemCodificada = encodeURIComponent(mensagem);
+            const linkWhatsApp = `https://wa.me/5547991447298?text=${mensagemCodificada}`;
+
+            // Mostra feedback visual
+            const overlay = document.getElementById('feedback-overlay');
+            overlay.style.display = 'flex';
+
+            // Redireciona diretamente para o WhatsApp
+            if (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                window.location.href = linkWhatsApp;
+            } else {
+                window.open(linkWhatsApp, '_blank');
+            }
+
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 3000);
+        });
     });
-});
     </script>
 </body>
 </html>

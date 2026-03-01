@@ -140,6 +140,8 @@ header.navbar {
     margin: 0 auto; /* Centraliza a imagem */
 }
 
+
+
 /* Services Section */
 .services {
     padding: 60px 0;
@@ -399,6 +401,95 @@ footer p {
     0% { transform: scale(0); opacity: 0; }
     80% { transform: scale(1.2); opacity: 1; }
     100% { transform: scale(1); }
+}
+
+/* =========================================
+PROVA SOCIAL E GATILHO DE AUTORIDADE
+   ========================================= */
+.social-proof {
+    padding: 60px 0;
+    text-align: center;
+}
+
+.social-proof h2 {
+    margin-bottom: 40px;
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    color: var(--white);
+    position: relative;
+    display: inline-block;
+}
+
+/* Sublinhado dinâmico na cor da marca para ancorar a atenção */
+.social-proof h2::after {
+    content: '';
+    position: absolute;
+    width: 50%;
+    height: 3px;
+    background: var(--accent);
+    bottom: -10px;
+    left: 25%;
+    border-radius: 2px;
+}
+
+.reviews-grid {
+    display: grid;
+    /* Grid responsivo automático: cria quantas colunas couberem, ideal para conversão em qualquer tela */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    padding: 0 15px;
+}
+
+.review-card {
+    background: #111; /* Contraste sutil com o fundo preto */
+    border: 1px solid #222;
+    border-radius: 8px;
+    padding: 30px 25px;
+    text-align: left;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Gatilho visual: o card "pula" provando interatividade e qualidade */
+.review-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--accent);
+    box-shadow: 0 10px 20px rgba(217, 65, 64, 0.1);
+}
+
+.stars {
+    color: #f39c12; /* Amarelo Ouro - O padrão mental universal para 5 estrelas */
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+}
+
+.review-text {
+    font-size: 0.95rem;
+    color: #ccc;
+    margin-bottom: 20px;
+    font-style: italic;
+    line-height: 1.6;
+    flex-grow: 1; /* Mantém os nomes alinhados embaixo mesmo se o texto variar de tamanho */
+}
+
+.client-name {
+    color: var(--white);
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.review-source {
+    font-size: 0.8rem;
+    color: #888;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.review-source i {
+    color: #ea4335; /* Cor da logo do Google para ancoragem visual */
 }
 
 /* Media Queries para telas muito pequenas */
